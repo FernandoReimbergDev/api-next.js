@@ -1,8 +1,25 @@
 import { NextResponse } from 'next/server';
 import db from '../../lib/db';
 
-// Lidar com requisições GET
-export async function GET() {
+const SECRET_KEY = process.env.API_SECRET_KEY;
+
+if (!SECRET_KEY) {
+    throw new Error('API_SECRET_KEY não foi definida no arquivo .env')
+}
+
+function validateSecretKey(req: Request) {
+    const secretKey = req.headers.get('x-api-key');
+    if (!secretKey || secretKey !== SECRET_KEY) {
+        return false;
+    }
+    return true;
+}
+// ROTA GET PARA LISTAR USUARIOS
+export async function GET(req: Request) {
+    if (!validateSecretKey(req)) {
+        return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+
     return new Promise((resolve, reject) => {
         db.all('SELECT * FROM users', [], (err, rows) => {
             if (err) {
@@ -15,8 +32,14 @@ export async function GET() {
     });
 }
 
-// Lidar com requisições POST
+
+//ROTA POST PARA CADASTRAR USUARIO
 export async function POST(req: Request) {
+
+    if (!validateSecretKey(req)) {
+        return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+
     const body = await req.json();
     const { name, email, password } = body;
 

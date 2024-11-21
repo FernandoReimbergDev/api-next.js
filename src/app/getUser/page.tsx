@@ -10,16 +10,21 @@ type User = {
     created_at: string;
 }
 
-export default function GetUsers(){
+export default function GetUsers() {
     const [users, setUsers] = useState<User[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(()=> {
+    useEffect(() => {
         const fetchUsers = async () => {
-            try{
-                const response = await fetch('/api/users');
+            try {
+                const response = await fetch('/api/users', {
+                    headers: {
+                        'x-api-key': 'wsx135jhg6789',
+                    },
+                });
 
-                if(!response.ok){
+
+                if (!response.ok) {
                     const errorData = await response.json();
                     setError(`Erro: ${errorData.error}`);
                     return;
@@ -37,11 +42,11 @@ export default function GetUsers(){
     }, []);
 
     return (
-        <div className="bg-gray-900 h-[100vh] p-8">
-            <h1 className="text-2xl font-bold text-white mb-4 text-center">Lista de Usuários</h1>
+        <div className="h-[calc(100vh - 56px)] p-8">
+            <h1 className="text-xl border shadow-xl max-w-7xl mx-auto font-bold mb-4 p-2">Lista de Usuários</h1>
             {error && <p className="text-red-500">{error}</p>}
             {users.length > 0 ? (
-                <table className="table-auto w-full max-w-6xl mx-auto bg-white  shadow-lg">
+                <table className="table-auto w-full max-w-7xl mx-auto bg-white shadow-lg">
                     <thead>
                         <tr className="bg-gray-200">
                             <th className="px-4 py-2">ID</th>
@@ -64,7 +69,7 @@ export default function GetUsers(){
                     </tbody>
                 </table>
             ) : (
-                <p className="text-white">Nenhum usuário encontrado.</p>
+                <p className="text-white text-center">Nenhum usuário encontrado.</p>
             )}
         </div>
     );

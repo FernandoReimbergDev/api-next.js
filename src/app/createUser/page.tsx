@@ -25,6 +25,7 @@ export default function CreateUser() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-api-key': 'wsx135jhg6789',
                 },
                 body: JSON.stringify(formData),
             });
@@ -50,10 +51,10 @@ export default function CreateUser() {
     };
 
     return (
-        <div className='bg-gray-900 h-[100vh] grid place-content-center'>
-            <h1>Criar Usuário</h1>
-            <form onSubmit={handleSubmit} className='bg-white p-8 rounded-lg flex flex-col gap-8'>
-                <div className='flex gap-2 items-start justify-start'>
+        <div className="h-[calc(100vh - 56px)] p-8">
+            <h1 className="text-xl border shadow-xl max-w-7xl mx-auto font-bold mb-4 p-2">Cadastrar Usuário</h1>
+            <form onSubmit={handleSubmit} className='bg-white p-8 rounded-lg flex flex-col gap-8 max-w-7xl mx-auto w-full border shadow-xl'>
+                <div className='flex flex-col gap-2 items-start justify-start'>
                     <label htmlFor="name">Nome:</label>
                     <input
                         type="text"
@@ -62,10 +63,10 @@ export default function CreateUser() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className='border pl-4'
+                        className='border p-1'
                     />
                 </div>
-                <div className='flex gap-2 items-start justify-start'>
+                <div className='flex flex-col gap-2 items-start justify-start'>
                     <label htmlFor="email">Email:</label>
                     <input
                         type="email"
@@ -74,11 +75,11 @@ export default function CreateUser() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className='border pl-4'
+                        className='border p-1'
 
                     />
                 </div>
-                <div className='flex gap-2 items-start justify-start'>
+                <div className='flex flex-col gap-2 items-start justify-start'>
                     <label htmlFor="password">Senha:</label>
                     <input
                         type="password"
@@ -87,10 +88,10 @@ export default function CreateUser() {
                         value={formData.password}
                         onChange={handleChange}
                         required
-                        className='border pl-4'
+                        className='border p-1'
                     />
                 </div>
-                <button type="submit" className='border rounded-sm w-fit px-4 mx-auto bg-sky-600 text-white font-semibold'>Criar</button>
+                <button type="submit" className='border rounded-sm w-fit px-4 bg-blue-500 text-white font-semibold'>Criar</button>
             </form>
             {status && <p>{status}</p>}
         </div>
