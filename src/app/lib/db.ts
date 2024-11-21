@@ -13,8 +13,9 @@ const db = new sqlite3.Database(dbPath, (err) => {
     }
 });
 
-// Cria a tabela se não existir
+// Cria as tabelas se não existirem
 db.serialize(() => {
+    // Criação da tabela 'users'
     db.run(`
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,9 +27,26 @@ db.serialize(() => {
         )
     `, (err) => {
         if (err) {
-            console.error('Erro ao criar a tabela:', err.message);
+            console.error('Erro ao criar a tabela users:', err.message);
         } else {
             console.log('Tabela users criada/verificada.');
+        }
+    });
+
+    // Criação da tabela 'contas'
+    db.run(`
+        CREATE TABLE IF NOT EXISTS contas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            conta TEXT NOT NULL,
+            valor REAL NOT NULL,
+            vencimento TEXT NOT NULL,
+            status TEXT NOT NULL
+        )
+    `, (err) => {
+        if (err) {
+            console.error('Erro ao criar a tabela contas:', err.message);
+        } else {
+            console.log('Tabela contas criada/verificada.');
         }
     });
 });
