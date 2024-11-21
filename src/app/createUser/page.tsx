@@ -25,7 +25,6 @@ export default function CreateUser() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': 'wsx135jhg6789',
                 },
                 body: JSON.stringify(formData),
             });

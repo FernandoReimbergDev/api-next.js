@@ -17,12 +17,7 @@ export default function GetUsers() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('/api/users', {
-                    headers: {
-                        'x-api-key': 'wsx135jhg6789',
-                    },
-                });
-
+                const response = await fetch('/api/users');
 
                 if (!response.ok) {
                     const errorData = await response.json();
